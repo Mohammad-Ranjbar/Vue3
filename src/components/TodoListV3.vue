@@ -1,0 +1,83 @@
+<template>
+  <div >
+
+  <h2>v3</h2>
+  <ul class="todos">
+    <li v-for="(task, index) in state.todos" :key="index">
+      <span
+        @click="toggleTaskStatus(task)"
+        :class="{ completed: task.completed }"
+      >
+        {{ task.title }}
+      </span>
+      <button @click="deleteTask(task)">Delete</button>
+    </li>
+  </ul>
+  <input type="text" v-model="state.new_task" @keypress.enter="addTask" />
+  <button @click="addTask">Add</button>
+
+  <div>
+    <p><strong>Completed</strong>:{{ completedTodosCount }}</p>
+    <p><strong>Pending</strong>:{{ pendingTodosCount }}</p>
+  </div>
+    </div>
+</template>
+
+<script>
+import { computed, reactive } from "vue";
+export default {
+
+  setup() {
+    const state = reactive({
+      new_task : "",
+      todos:[
+        { title: "Task 1", completed: true },
+        { title: "Task 2", completed: false },
+      ]
+    });
+    const completedTodosCount = computed(() => {
+      return state.todos.filter((task) => task.completed === true).length;
+    });
+    const pendingTodosCount = computed(() => {
+      return state.todos.filter((task) => !task.completed).length;
+    });
+    function addTask() {
+      if (state.new_task.value) {
+        state.todos.push({ title: state.new_task.value, completed: false });
+        state.new_task.value = "";
+      }
+    }
+    function deleteTask(task) {
+      var index = state.todos.indexOf(task);
+      state.todos.splice(index, 1);
+    }
+    function toggleTaskStatus(task) {
+      task.completed = !task.completed;
+    }
+    return {
+
+      completedTodosCount,
+      pendingTodosCount,
+      addTask,
+      deleteTask,
+      toggleTaskStatus,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.todos {
+  width: 250px;
+  padding: 0;
+}
+.todos li {
+  padding: 5px;
+}
+.todos li button {
+  float: right;
+}
+.completed {
+  text-decoration: line-through;
+}
+</style>
