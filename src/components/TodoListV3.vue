@@ -3,7 +3,8 @@
 
   <h2>v3</h2>
   <ul class="todos">
-    <li v-for="(task, index) in state.todos" :key="index">
+    <li>{{state}}</li>
+    <!-- <li v-for="(task, index) in state.todos" :key="index">
       <span
         @click="toggleTaskStatus(task)"
         :class="{ completed: task.completed }"
@@ -11,20 +12,20 @@
         {{ task.title }}
       </span>
       <button @click="deleteTask(task)">Delete</button>
-    </li>
+    </li> -->
   </ul>
-  <input type="text" v-model="state.new_task" @keypress.enter="addTask" />
-  <button @click="addTask">Add</button>
+  <!-- <input type="text" v-model="state.new_task" @keypress.enter="addTask" /> -->
+  <!-- <button @click="addTask">Add</button> -->
 
   <div>
-    <p><strong>Completed</strong>:{{ completedTodosCount }}</p>
-    <p><strong>Pending</strong>:{{ pendingTodosCount }}</p>
+    <!-- <p><strong>Completed</strong>:{{ completedTodosCount }}</p> -->
+    <!-- <p><strong>Pending</strong>:{{ pendingTodosCount }}</p> -->
   </div>
     </div>
 </template>
 
 <script>
-import { computed, reactive } from "vue";
+import {  reactive } from "vue";
 export default {
 
   setup() {
@@ -35,12 +36,12 @@ export default {
         { title: "Task 2", completed: false },
       ]
     });
-    const completedTodosCount = computed(() => {
-      return state.todos.filter((task) => task.completed === true).length;
-    });
-    const pendingTodosCount = computed(() => {
-      return state.todos.filter((task) => !task.completed).length;
-    });
+    // const completedTodosCount = computed(() => {
+    //   return state.todos.filter((task) => task.completed === true).length;
+    // });
+    // const pendingTodosCount = computed(() => {
+    //   return state.todos.filter((task) => !task.completed).length;
+    // });
     function addTask() {
       if (state.new_task.value) {
         state.todos.push({ title: state.new_task.value, completed: false });
@@ -55,9 +56,9 @@ export default {
       task.completed = !task.completed;
     }
     return {
-
-      completedTodosCount,
-      pendingTodosCount,
+      state,
+      // completedTodosCount,
+      // pendingTodosCount,
       addTask,
       deleteTask,
       toggleTaskStatus,

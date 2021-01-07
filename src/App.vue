@@ -5,19 +5,19 @@
   </div>
 
   <div>
-    <TodosListV3 title="Composition API" />
+    <TodoListV3 title="Composition API" />
   </div>
 </div>
 </template>
 
 <script>
 import TodosList from "./components/TodosList";
-import TodosListV3 from "./components/TodoListV3";
+import TodoListV3 from "./components/TodoListV3"
 export default {
   name: 'App',
   components: {
       TodosList,
-         TodosListV3,
+         TodoListV3,
   }
 }
 </script>
